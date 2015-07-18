@@ -26,10 +26,10 @@ end AlarmModule;
 
 architecture struct of AlarmModule is
 
-Type state is (state1, state2, state3, state4);															--4 toestanden
+Type state is (state1, state2, state3, state4);										--4 toestanden
 Signal presentState, nextState : state := state1;
 
-begin																													--Finite state machine (Moore - houd enkel rekening met huidige toestand)
+begin																															--Finite state machine (Moore - houd enkel rekening met huidige toestand)
 StateRegister : process(sysClk)
 	begin
 		if rising_edge(sysClk) then
