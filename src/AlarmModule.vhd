@@ -26,10 +26,10 @@ end AlarmModule;
 
 architecture struct of AlarmModule is
 
-Type state is (state1, state2, state3, state4);										--4 toestanden
+Type state is (state1, state2, state3, state4);							--4 toestanden
 Signal presentState, nextState : state := state1;
 
-begin																															--Finite state machine (Moore - houd enkel rekening met huidige toestand)
+begin												--Finite state machine (Moore - houd enkel rekening met huidige toestand)
 StateRegister : process(sysClk)
 	begin
 		if rising_edge(sysClk) then
@@ -65,13 +65,13 @@ Uitgangen : process(presentState)
 NxtState : process(presentState, toggleAlarm, alarmUit, MM, UU, alarmMM, alarmUU)
 	begin
 		case presentState is
-			when state1 =>																							--Alarm uit: Default state
+			when state1 =>								--Alarm uit: Default state
 				if toggleAlarm = '1' then
 					nextState <= state2;
 				else
 					nextState <= state1;
 				end if;				
-			when state2 =>																							--Alarm aan
+			when state2 =>								--Alarm aan
 				if toggleAlarm = '1' then
 					nextState <= state1;
 				else
@@ -81,7 +81,7 @@ NxtState : process(presentState, toggleAlarm, alarmUit, MM, UU, alarmMM, alarmUU
 						nextState <= state2;
 					end if;
 				end if;
-			when state3 =>																							--Alarm actief (signaal voor 1 min of tot toetsindrukking)
+			when state3 =>								--Alarm actief (signaal voor 1 min of tot toetsindrukking)
 				if toggleAlarm = '1' then
 					nextState <= state1;
 				else
@@ -93,7 +93,7 @@ NxtState : process(presentState, toggleAlarm, alarmUit, MM, UU, alarmMM, alarmUU
 						nextState <= state3;
 					end if;
 				end if;
-			when state4 =>																							--Alarm stil
+			when state4 =>								--Alarm stil
 				if toggleAlarm = '1' then
 					nextState <= state1;
 				elsif MM /= alarmMM or UU /= alarmUU then
@@ -101,7 +101,7 @@ NxtState : process(presentState, toggleAlarm, alarmUit, MM, UU, alarmMM, alarmUU
 				else
 					nextState <= state4;
 				end if;
-			when others =>																							--Onbekende toestand: naar Alarm uit: Default state
+			when others =>								--Onbekende toestand: naar Alarm uit: Default state
 				nextState <= state1;
 		end case;	
 	end process;
