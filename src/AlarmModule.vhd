@@ -14,14 +14,14 @@ use IEEE.NUMERIC_STD.ALL;
 entity AlarmModule is
 	Port ( sysClk : in STD_LOGIC;
 	       reset : in STD_LOGIC;
-			 toggleAlarm : in STD_LOGIC;
-			 alarmUit : in STD_LOGIC;
-			 MM : in STD_LOGIC_VECTOR(7 downto 0);
-			 UU : in STD_LOGIC_VECTOR(7 downto 0);
-			 alarmMM : in STD_LOGIC_VECTOR(7 downto 0);
-			 alarmUU : in STD_LOGIC_VECTOR(7 downto 0);
-			 alarmActief : out STD_LOGIC := '0';
-			 alarmSignaal : out STD_LOGIC := '0');
+	       toggleAlarm : in STD_LOGIC;
+	       alarmUit : in STD_LOGIC;
+	       MM : in STD_LOGIC_VECTOR(7 downto 0);
+	       UU : in STD_LOGIC_VECTOR(7 downto 0);
+	       alarmMM : in STD_LOGIC_VECTOR(7 downto 0);
+	       alarmUU : in STD_LOGIC_VECTOR(7 downto 0);
+	       alarmActief : out STD_LOGIC := '0';
+	       alarmSignaal : out STD_LOGIC := '0');
 end AlarmModule;
 
 architecture struct of AlarmModule is
