@@ -13,16 +13,16 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity BCDToDis is
 	Port ( BCDTellerToDis0_1 : in STD_LOGIC_VECTOR(3 downto 0);
-			 BCDTellerToDis2_3 : in STD_LOGIC_VECTOR(3 downto 0);
-			 BCDTeller0 : in STD_LOGIC_VECTOR(7 downto 0);	
-			 BCDTeller1 : in STD_LOGIC_VECTOR(7 downto 0);
-			 BCDTeller2 : in STD_LOGIC_VECTOR(7 downto 0);
-			 BCDTeller3 : in STD_LOGIC_VECTOR(7 downto 0);
-			 disPunt : in STD_LOGIC_VECTOR(3 downto 0);																				--Laag actief															
-			 dis0 : out STD_LOGIC_VECTOR(4 downto 0) := "10000";
-			 dis1 : out STD_LOGIC_VECTOR(4 downto 0) := "10000";
-			 dis2 : out STD_LOGIC_VECTOR(4 downto 0) := "10000";
-			 dis3 : out STD_LOGIC_VECTOR(4 downto 0) := "10000");
+	       BCDTellerToDis2_3 : in STD_LOGIC_VECTOR(3 downto 0);
+	       BCDTeller0 : in STD_LOGIC_VECTOR(7 downto 0);	
+	       BCDTeller1 : in STD_LOGIC_VECTOR(7 downto 0);
+	       BCDTeller2 : in STD_LOGIC_VECTOR(7 downto 0);
+	       BCDTeller3 : in STD_LOGIC_VECTOR(7 downto 0);
+	       disPunt : in STD_LOGIC_VECTOR(3 downto 0);					--Laag actief															
+	       dis0 : out STD_LOGIC_VECTOR(4 downto 0) := "10000";
+	       dis1 : out STD_LOGIC_VECTOR(4 downto 0) := "10000";
+	       dis2 : out STD_LOGIC_VECTOR(4 downto 0) := "10000";
+	       dis3 : out STD_LOGIC_VECTOR(4 downto 0) := "10000");
 end BCDToDis;
 
 architecture struct of BCDToDis is
@@ -43,7 +43,7 @@ BCDToDis0_1 : process(BCDTellerToDis0_1, BCDTeller0, BCDTeller1, BCDTeller2, BCD
 			when "1000" =>
 				dis0(3 downto 0) <= BCDTeller3(3 downto 0);
 				dis1(3 downto 0) <= BCDTeller3(7 downto 4);
-			when others =>																													--Ongeldige toestand
+			when others =>								--Ongeldige toestand
 				dis0(3 downto 0) <= "1111";
 				dis1(3 downto 0) <= "1111";
 		end case;
@@ -64,7 +64,7 @@ BCDToDis2_3 : process(BCDTellerToDis2_3, BCDTeller0, BCDTeller1, BCDTeller2, BCD
 			when "1000" =>
 				dis2(3 downto 0) <= BCDTeller3(3 downto 0);
 				dis3(3 downto 0) <= BCDTeller3(7 downto 4);
-			when others =>																													--Ongeldige toestand
+			when others =>								--Ongeldige toestand
 				dis2(3 downto 0) <= "1111";
 				dis3(3 downto 0) <= "1111";
 		end case;
