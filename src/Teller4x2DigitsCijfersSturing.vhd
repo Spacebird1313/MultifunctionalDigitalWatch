@@ -13,12 +13,12 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity Teller4x2DigitsCijfersSturing is
 	Port ( sysClk : in STD_LOGIC;
-			 enable : in STD_LOGIC;
-			 reset : in STD_LOGIC;
-			 disSet : in STD_LOGIC_VECTOR(3 downto 0);
-			 disCt : in STD_LOGIC_VECTOR(2 downto 0);
-			 disEnable : out STD_LOGIC_VECTOR(3 downto 0));
-			 
+	       enable : in STD_LOGIC;
+	       reset : in STD_LOGIC;
+	       disSet : in STD_LOGIC_VECTOR(3 downto 0);
+	       disCt : in STD_LOGIC_VECTOR(2 downto 0);
+	       disEnable : out STD_LOGIC_VECTOR(3 downto 0));
+	 
 end Teller4x2DigitsCijfersSturing;
 
 architecture Behavioral of Teller4x2DigitsCijfersSturing is
@@ -26,7 +26,7 @@ architecture Behavioral of Teller4x2DigitsCijfersSturing is
 Type state is (state1, state2, state3, state4, state5);				--5 toestanden
 Signal presentState, nextState : state := state1;
 
-begin																					--Finite state machine (Mealy - uitgangen afhankelijk van de huidige stand en ingangen)
+begin										--Finite state machine (Mealy - uitgangen afhankelijk van de huidige stand en ingangen)
 StateRegister : process(sysClk)
 	begin
 		if rising_edge(sysClk) then
@@ -74,20 +74,19 @@ Uitgangen : process(presentState, disCt, enable)
 NxtState : process(disSet)
 	begin
 		case disSet is
-			when "0000" =>															--Modus: default teller
+			when "0000" =>						--Modus: default teller
 				nextState <= state1;
-			when "0001" =>															--Modus: stel teller 1 in
+			when "0001" =>						--Modus: stel teller 1 in
 				nextState <= state2;
-			when "0010" =>															--Modus: stel teller 2 in
+			when "0010" =>						--Modus: stel teller 2 in
 				nextState <= state3;
-			when "0100" =>															--Modus: stel teller 3 in
+			when "0100" =>						--Modus: stel teller 3 in
 				nextState <= state4;												
-			when "1000" =>															--Modus: stel teller 4 in
+			when "1000" =>						--Modus: stel teller 4 in
 				nextState <= state5;
-			when others =>															--Onbekende toestand: default teller
+			when others =>						--Onbekende toestand: default teller
 				nextState <= state1;
 		end case;
 	end process;
 	
 end Behavioral;
-
