@@ -14,9 +14,9 @@ use IEEE.NUMERIC_STD.ALL;
 entity SignalPulsModule is
 	Port ( sysClk : in STD_LOGIC;
 	       reset : in STD_LOGIC;
-			 pulsFrequentie : in STD_LOGIC;
-			 signalIn : in STD_LOGIC;
-			 pulsOut : out STD_LOGIC := '0');
+	       pulsFrequentie : in STD_LOGIC;
+	       signalIn : in STD_LOGIC;
+	       pulsOut : out STD_LOGIC := '0');
 end SignalPulsModule;
 
 architecture struct of SignalPulsModule is
