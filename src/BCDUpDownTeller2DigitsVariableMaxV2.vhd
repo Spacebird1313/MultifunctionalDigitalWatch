@@ -14,12 +14,12 @@ use IEEE.NUMERIC_STD.ALL;
 entity BCDUpDownTeller2DigitsVariableMaxV2 is
 	Generic ( min : integer := 0);
 	Port ( sysClk : in STD_LOGIC;
-			 updown : in STD_LOGIC;
+	       updown : in STD_LOGIC;
 	       reset : in STD_LOGIC;
-			 enable : in STD_LOGIC;
-			 max : in STD_LOGIC_VECTOR(7 downto 0) := "00000000";
-			 ct : out STD_LOGIC := '0';
-			 cnt : out STD_LOGIC_VECTOR (7 downto 0) := "00000000");
+	       enable : in STD_LOGIC;
+	       max : in STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+	       ct : out STD_LOGIC := '0';
+	       cnt : out STD_LOGIC_VECTOR (7 downto 0) := "00000000");
 end BCDUpDownTeller2DigitsVariableMaxV2;
 
 architecture Behavioral of BCDUpDownTeller2DigitsVariableMaxV2 is
@@ -49,13 +49,13 @@ Teller : process(sysClk)
 					end if;
 				else                         																															 --Aftrekken
 					if cnt_int = min then     																															 --Minimale waarde bereikt, zet waarde terug op maximaal
-			         cnt_int <= max_int;
-					   ct <= '1';
-				   else
-					   cnt_int <= cnt_int - 1;
-				      end if;
-			   end if;
-		   end if;
+			         		cnt_int <= max_int;
+					   	ct <= '1';
+				   	else
+					   	cnt_int <= cnt_int - 1;
+					end if;
+			   	end if;
+		   	end if;
 		end if;
 	end process;
 
