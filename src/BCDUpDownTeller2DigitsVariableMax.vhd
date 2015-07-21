@@ -33,22 +33,22 @@ Signal cnt_tiental_int : integer range 0 to 9 := tiental_min;
 
 begin
 
-eenheid_max <= to_integer(unsigned(max(3 downto 0)));									   																						--Stel maximum in (conversie STD_LOGIC_VECTOR(BCD) naar integer)
+eenheid_max <= to_integer(unsigned(max(3 downto 0)));									   				--Stel maximum in (conversie STD_LOGIC_VECTOR(BCD) naar integer)
 tiental_max <= to_integer(unsigned(max(7 downto 4)));
 
 Teller : process(sysClk)
 	begin
 		if rising_edge(sysClk) then
 			ct <= '0';
-			if reset = '1'  then    																																						--Voer reset uit, zet alle waardes terug op minimaal
+			if reset = '1'  then    													--Voer reset uit, zet alle waardes terug op minimaal
 				cnt_eenheid_int <= eenheid_min;
 				cnt_tiental_int <= tiental_min;
 			elsif cnt_tiental_int > tiental_max or (cnt_tiental_int = tiental_max and cnt_eenheid_int > eenheid_max) then
 				cnt_eenheid_int <= eenheid_max;
 				cnt_tiental_int <= tiental_max;
 			elsif enable = '1' then
-				if updown = '0' then                                                         																			   --Optellen
-					if cnt_eenheid_int = eenheid_max and cnt_tiental_int = tiental_max then  																				--Maximale waarde bereikt, zet waarde terug op minimaal
+				if updown = '0' then                                                         						--Optellen
+					if cnt_eenheid_int = eenheid_max and cnt_tiental_int = tiental_max then  					--Maximale waarde bereikt, zet waarde terug op minimaal
 						cnt_eenheid_int <= eenheid_min;
 						cnt_tiental_int <= tiental_min;
 						ct <= '1';
@@ -58,8 +58,8 @@ Teller : process(sysClk)
 					else
 						cnt_eenheid_int <= cnt_eenheid_int + 1;
 					end if;
-				else                                                                          																			--Aftrekken
-					if cnt_eenheid_int = eenheid_min and cnt_tiental_int = tiental_min then   																				--Minimale waarde bereikt, zet waarde terug op maximaal
+				else                                                                          						--Aftrekken
+					if cnt_eenheid_int = eenheid_min and cnt_tiental_int = tiental_min then   					--Minimale waarde bereikt, zet waarde terug op maximaal
 			         		cnt_eenheid_int <= eenheid_max;
 			  	      		cnt_tiental_int <= tiental_max;
 					   	ct <= '1';
