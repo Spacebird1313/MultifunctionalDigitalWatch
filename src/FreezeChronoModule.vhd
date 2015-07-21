@@ -13,26 +13,26 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity FreezeChronoModule is
 	Port ( sysClk : in STD_LOGIC;
-			 freeze : in STD_LOGIC;
-			 reset : in STD_LOGIC;
-			 HHin : in STD_LOGIC_VECTOR(7 downto 0);
-			 SSin : in STD_LOGIC_VECTOR(7 downto 0);
-			 MMin : in STD_LOGIC_VECTOR(7 downto 0);
-			 UUin : in STD_LOGIC_VECTOR(7 downto 0);
-			 HHout : out STD_LOGIC_VECTOR(7 downto 0) := "00000000";
-			 SSout : out STD_LOGIC_VECTOR(7 downto 0) := "00000000";
-			 MMout : out STD_LOGIC_VECTOR(7 downto 0) := "00000000";
-			 UUout : out STD_LOGIC_VECTOR(7 downto 0) := "00000000");
+	       freeze : in STD_LOGIC;
+	       reset : in STD_LOGIC;
+	       HHin : in STD_LOGIC_VECTOR(7 downto 0);
+	       SSin : in STD_LOGIC_VECTOR(7 downto 0);
+	       MMin : in STD_LOGIC_VECTOR(7 downto 0);
+	       UUin : in STD_LOGIC_VECTOR(7 downto 0);
+	       HHout : out STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+	       SSout : out STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+	       MMout : out STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+	       UUout : out STD_LOGIC_VECTOR(7 downto 0) := "00000000");
 end FreezeChronoModule;
 
 architecture Behavioral of FreezeChronoModule is
 
-Type state is (state1, state2);																								--2 toestanden
+Type state is (state1, state2);														--2 toestanden
 Signal presentState, nextState : state := state1;
 Signal HHFreeze, SSFreeze, MMFreeze, UUFreeze : STD_LOGIC_VECTOR(7 downto 0) := "00000000";
 
 begin
-Latchen : process(sysClk)																										--Huidige telstand latchen
+Latchen : process(sysClk)														--Huidige telstand latchen
 	begin
 		if rising_edge(sysClk) then
 			if reset = '1' then
@@ -47,9 +47,8 @@ Latchen : process(sysClk)																										--Huidige telstand latchen
 				UUFreeze <= UUin;
 			end if;
 		end if;
-	end process;																						
-	
-StateRegister : process(sysClk)																								--Finite state machine (Mealy - uitgangen afhankelijk van de huidige stand en ingangen)
+	end process;
+StateRegister : process(sysClk)														--Finite state machine (Mealy - uitgangen afhankelijk van de huidige stand en ingangen)
 	begin
 		if rising_edge(sysClk) then
 			if reset = '1' then
@@ -84,19 +83,19 @@ Uitgangen : process(presentState, HHin, SSin, MMin, UUin, HHFreeze, SSFreeze, MM
 NxtState : process(presentState, freeze)
 	begin
 		case presentState is
-			when state1 =>																											--Continu: Default state
+			when state1 =>													--Continu: Default state
 				if freeze = '1' then
 					nextState <= state2;
 				else
 					nextState <= state1;
-				end if;				
-			when state2 =>																											--Freezemode
+				end if;	
+			when state2 =>													--Freezemode
 				if freeze = '1' then
 					nextState <= state1;
 				else
 					nextState <= state2;
 				end if;
-			when others =>																											--Onbekende toestand: naar Continu: Default state
+			when others =>													--Onbekende toestand: naar Continu: Default state
 				nextState <= state1;
 		end case;	
 	end process;
