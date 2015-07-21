@@ -13,9 +13,9 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity DisplayBlinkModule is
 	Port ( clkBlink : in STD_LOGIC;
-			 disBlink : in STD_LOGIC_VECTOR(3 downto 0);
-			 disSelectIn : in STD_LOGIC_VECTOR(3 downto 0);
-			 disSelectUit : out STD_LOGIC_VECTOR(3 downto 0) := "1111");
+	       disBlink : in STD_LOGIC_VECTOR(3 downto 0);
+	       disSelectIn : in STD_LOGIC_VECTOR(3 downto 0);
+	       disSelectUit : out STD_LOGIC_VECTOR(3 downto 0) := "1111");
 end DisplayBlinkModule;
 
 architecture Behavioral of DisplayBlinkModule is
@@ -45,4 +45,3 @@ disSelectUit(3) <= '1' when disBlink(3) = '1' and blink = '0' else
 						 disSelectIn(3);
 
 end Behavioral;
-
