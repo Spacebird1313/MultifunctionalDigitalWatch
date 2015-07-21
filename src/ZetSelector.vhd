@@ -13,20 +13,20 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity ZetSelector is
 	Port ( sysClk : in STD_LOGIC;
-			 enableIn : in STD_LOGIC;
-			 reset : in STD_LOGIC;
-			 up : in STD_LOGIC;
-			 down : in STD_LOGIC;
-			 updownCount : in STD_LOGIC;																				--Telrichting in defaultmodus tellen
-			 zetIn : in STD_LOGIC_VECTOR(3 downto 0);
-			 enableUit : out STD_LOGIC := '0';
-			 updown : out STD_LOGIC := '0';
-			 zetUit : out STD_LOGIC_VECTOR(3 downto 0) := "0000");
+	       enableIn : in STD_LOGIC;
+	       reset : in STD_LOGIC;
+	       up : in STD_LOGIC;
+	       down : in STD_LOGIC;
+	       updownCount : in STD_LOGIC;									--Telrichting in defaultmodus tellen
+	       zetIn : in STD_LOGIC_VECTOR(3 downto 0);
+	       enableUit : out STD_LOGIC := '0';
+	       updown : out STD_LOGIC := '0';
+	       zetUit : out STD_LOGIC_VECTOR(3 downto 0) := "0000");
 end ZetSelector;
 
 architecture Behavioral of ZetSelector is
 
-Type state is (state1, state2, state3);																			--3 toestanden
+Type state is (state1, state2, state3);										--3 toestanden
 Signal presentState, nextState : state := state1;
 Signal up_intern, down_intern : STD_LOGIC := '0';
 Signal zetIn_intern : STD_LOGIC_VECTOR(3 downto 0) := "0000";
@@ -65,7 +65,7 @@ disZetBuffer : process(sysClk)
 		end if;
 	end process;
 
-StateRegister : process(sysClk)																					--Finite state machine (Mealy - uitgangen afhankelijk van de huidige stand en ingangen)
+StateRegister : process(sysClk)											--Finite state machine (Mealy - uitgangen afhankelijk van de huidige stand en ingangen)
 	begin
 		if rising_edge(sysClk) then
 			if reset = '1' then
@@ -109,7 +109,7 @@ Uitgangen : process(presentState, enableIn, updownCount, zetIn_intern, up_intern
 NxtState : process(presentState, zetIn, up, down)
 	begin
 		case presentState is
-			when state1 =>																									--Modus: default standaard tellen
+			when state1 =>										--Modus: default standaard tellen
 				if zetIn = "0000" then
 					nextState <= state1;
 				else
@@ -123,7 +123,7 @@ NxtState : process(presentState, zetIn, up, down)
 						nextState <= state1;
 					end if;
 				end if;
-			when state2 =>																									--Modus: teller zetten (up)
+			when state2 =>										--Modus: teller zetten (up)
 				if zetIn = "0000" then
 					nextState <= state1;
 				else
@@ -133,7 +133,7 @@ NxtState : process(presentState, zetIn, up, down)
 						nextState <= state2;
 					end if;
 				end if;
-			when state3 =>																									--Modus: teller zetten (down)
+			when state3 =>										--Modus: teller zetten (down)
 				if zetIn = "0000" then
 					nextState <= state1;
 				else
@@ -143,10 +143,9 @@ NxtState : process(presentState, zetIn, up, down)
 						nextState <= state3;
 					end if;
 				end if;
-			when others =>																									--Onbekende toestand: default standaard tellen
+			when others =>										--Onbekende toestand: default standaard tellen
 				nextState <= state1;
 		end case;
 	end process;
 
 end Behavioral;
-
