@@ -13,13 +13,13 @@ use ieee.numeric_std.ALL;
 
 entity DisplayController is
 	Port( clk : in STD_LOGIC;
-			reset : in STD_LOGIC;
-			dis0 : in STD_LOGIC_VECTOR(4 downto 0);
-			dis1 : in STD_LOGIC_VECTOR(4 downto 0);
-			dis2 : in STD_LOGIC_VECTOR(4 downto 0);
-			dis3 : in STD_LOGIC_VECTOR(4 downto 0);
-			disOut : out STD_LOGIC_VECTOR(4 downto 0);     -- Kathode
-			disSelect : out STD_LOGIC_VECTOR(3 downto 0)); -- Anode
+	      reset : in STD_LOGIC;
+	      dis0 : in STD_LOGIC_VECTOR(4 downto 0);
+	      dis1 : in STD_LOGIC_VECTOR(4 downto 0);
+	      dis2 : in STD_LOGIC_VECTOR(4 downto 0);
+	      dis3 : in STD_LOGIC_VECTOR(4 downto 0);
+	      disOut : out STD_LOGIC_VECTOR(4 downto 0);     -- Kathode
+	      disSelect : out STD_LOGIC_VECTOR(3 downto 0)); -- Anode
 end DisplayController;
 
 architecture Behavioral of DisplayController is
@@ -27,7 +27,6 @@ architecture Behavioral of DisplayController is
 Signal disCount_int : integer range 0 to 3 := 0;
 
 begin
-
 	displayScan : process(clk, reset)
 		begin
 			if reset = '1' then
@@ -62,4 +61,3 @@ begin
 		end process;
 		
 end Behavioral;
-
