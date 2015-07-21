@@ -13,12 +13,12 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity InstelmodusSturing is
 	Port ( sysClk : in STD_LOGIC;
-			 reset : in STD_LOGIC;
-			 nextModeIn : in STD_LOGIC;
-			 huidigWerkingsmodus : in STD_LOGIC_VECTOR(4 downto 0);
-			 huidigInstelmodus : in STD_LOGIC_VECTOR(4 downto 0);
-			 nextModeOut : out STD_LOGIC := '0';
-			 instelmodeReset : out STD_LOGIC := '0');
+	       reset : in STD_LOGIC;
+	       nextModeIn : in STD_LOGIC;
+	       huidigWerkingsmodus : in STD_LOGIC_VECTOR(4 downto 0);
+	       huidigInstelmodus : in STD_LOGIC_VECTOR(4 downto 0);
+	       nextModeOut : out STD_LOGIC := '0';
+	       instelmodeReset : out STD_LOGIC := '0');
 end InstelmodusSturing;
 
 architecture Behavioral of InstelmodusSturing is
@@ -35,89 +35,89 @@ instelmodeSelectorSturing : process(sysClk)
 			elsif huidigWerkingsmodus = vorigWerkingsmodus then
 				if nextModeIn = '1' then
 					case huidigWerkingsmodus is
-						when "00001" =>														--Modus: Uurwerk
+						when "00001" =>								--Modus: Uurwerk
 							case huidigInstelmodus is
-								when "00001" =>												--Normale werking
+								when "00001" =>						--Normale werking
 									nextModeOut <= '1';
 									instelmodeReset <= '0';
-								when "00010" =>												--Instellen uren
+								when "00010" =>						--Instellen uren
 									nextModeOut <= '1';
 									instelmodeReset <= '0';
-								when "00100" =>												--Instellen minuten
+								when "00100" =>						--Instellen minuten
 									nextModeOut <= '1';
 									instelmodeReset <= '0';
-								when "01000" =>												--Reset seconden
+								when "01000" =>						--Reset seconden
 									nextModeOut <= '0';
 									instelmodeReset <= '1';
-								when others =>													--Ongeldige instelmodus: reset InstelmodeSelector
+								when others =>						--Ongeldige instelmodus: reset InstelmodeSelector
 									nextModeOut <= '0';
 									instelmodeReset <= '1';
 							end case;
-						when "00010" =>														--Modus: Datum
+						when "00010" =>								--Modus: Datum
 							case huidigInstelmodus is
-								when "00001" =>												--Normale werking
+								when "00001" =>						--Normale werking
 									nextModeOut <= '1';
 									instelmodeReset <= '0';
-								when "00010" =>												--Instellen dag
+								when "00010" =>						--Instellen dag
 									nextModeOut <= '1';
 									instelmodeReset <= '0';
-								when "00100" =>												--Instellen maand
+								when "00100" =>						--Instellen maand
 									nextModeOut <= '1';
 									instelmodeReset <= '0';
-								when "01000" =>												--Instellen jaren
+								when "01000" =>						--Instellen jaren
 									nextModeOut <= '0';
 									instelmodeReset <= '1';
-								when others =>													--Ongeldige instelmodus: reset InstelmodeSelector
+								when others =>						--Ongeldige instelmodus: reset InstelmodeSelector
 									nextModeOut <= '0';
 									instelmodeReset <= '1';
 							end case;
-						when "00100" =>														--Modus: Alarm
+						when "00100" =>								--Modus: Alarm
 							case huidigInstelmodus is
-								when "00001" =>												--Normale werking
+								when "00001" =>						--Normale werking
 									nextModeOut <= '1';
 									instelmodeReset <= '0';
-								when "00010" =>												--Instellen alarmuur
+								when "00010" =>						--Instellen alarmuur
 									nextModeOut <= '1';
 									instelmodeReset <= '0';
-								when "00100" =>												--Instellen alarmminuten
+								when "00100" =>						--Instellen alarmminuten
 									nextModeOut <= '0';
 									instelmodeReset <= '1';
-								when others =>													--Ongeldige instelmodus: reset InstelmodeSelector
+								when others =>						--Ongeldige instelmodus: reset InstelmodeSelector
 									nextModeOut <= '0';
 									instelmodeReset <= '1';
 							end case;
-						when "01000" =>														--Modus: Timer
+						when "01000" =>								--Modus: Timer
 							case huidigInstelmodus is
-								when "00001" =>												--Start timer
+								when "00001" =>						--Start timer
 									nextModeOut <= '1';
 									instelmodeReset <= '0';
-								when "00010" =>												--Instellen minuten
+								when "00010" =>						--Instellen minuten
 									nextModeOut <= '1';
 									instelmodeReset <= '0';
-								when "00100" =>												--Instellen seconden
+								when "00100" =>						--Instellen seconden
 									nextModeOut <= '0';
 									instelmodeReset <= '1';
-								when others =>													--Ongeldige instelmodus: reset InstelmodeSelector
+								when others =>						--Ongeldige instelmodus: reset InstelmodeSelector
 									nextModeOut <= '0';
 									instelmodeReset <= '1';
 							end case;
-						when "10000" =>														--Modus: Chronometer
+						when "10000" =>								--Modus: Chronometer
 							case huidigInstelmodus is
-								when "00001" =>												--Toon SS:HH
+								when "00001" =>						--Toon SS:HH
 									nextModeOut <= '1';
 									instelmodeReset <= '0';
-								when "00010" =>												--Toon UU:MM
+								when "00010" =>						--Toon UU:MM
 									nextModeOut <= '0';
 									instelmodeReset <= '1';
-								when others =>													--Ongeldige instelmodus: reset InstelmodeSelector
+								when others =>						--Ongeldige instelmodus: reset InstelmodeSelector
 									nextModeOut <= '0';
 									instelmodeReset <= '1';
 							end case;
-						when others =>															--Ongeldige werkingsmodus
+						when others =>								--Ongeldige werkingsmodus
 							nextModeOut <= '0';
 							instelmodeReset <= '0';
 					end case;
-				else																				--Nieuwe werkingsmodus
+				else											--Nieuwe werkingsmodus
 					nextModeOut <= '0';
 					instelmodeReset <= '0';
 				end if;
@@ -130,4 +130,3 @@ instelmodeSelectorSturing : process(sysClk)
 	end process;
 
 end Behavioral;
-
