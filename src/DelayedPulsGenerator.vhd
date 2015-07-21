@@ -13,11 +13,11 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity DelayedPulsGenerator is
 	Port ( sysClk : in STD_LOGIC;
-			 reset : in STD_LOGIC;
-			 pulsClk : in STD_LOGIC;
-			 delayClk : in STD_LOGIC;
-			 signalIn : in STD_LOGIC;
-			 pulsOut : out STD_LOGIC := '0');
+	       reset : in STD_LOGIC;
+	       pulsClk : in STD_LOGIC;
+	       delayClk : in STD_LOGIC;
+	       signalIn : in STD_LOGIC;
+	       pulsOut : out STD_LOGIC := '0');
 end DelayedPulsGenerator;
 
 architecture Behavioral of DelayedPulsGenerator is
@@ -25,7 +25,7 @@ architecture Behavioral of DelayedPulsGenerator is
 Type state is (state1, state2, state3);						--3 toestanden
 Signal presentState, nextState : state := state1;
 
-begin																		--Finite state machine (Mealy - uitgangen afhankelijk van de huidige stand en ingangen)
+begin										--Finite state machine (Mealy - uitgangen afhankelijk van de huidige stand en ingangen)
 StateRegister : process(sysClk)
 	begin
 		if rising_edge(sysClk) then
@@ -54,7 +54,7 @@ Uitgangen : process(presentState, pulsClk)
 NxtState : process(presentState, delayClk, signalIn)
 	begin
 		case presentState is
-			when state1 =>												--Begin toestand
+			when state1 =>						--Begin toestand
 				if signalIn = '1' then
 					if delayClk = '1' then
 						nextState <= state2;
@@ -64,7 +64,7 @@ NxtState : process(presentState, delayClk, signalIn)
 				else
 					nextState <= state1;
 				end if;
-			when state2 =>												--Toets indrukken (delay = delayClk)
+			when state2 =>						--Toets indrukken (delay = delayClk)
 				if signalIn = '1' then
 					if delayClk = '1' then
 						nextState <= state3;
@@ -74,13 +74,13 @@ NxtState : process(presentState, delayClk, signalIn)
 				else
 					nextState <= state1;
 				end if;
-			when state3 =>												--Toets ingedrukt houden (state3)
+			when state3 =>						--Toets ingedrukt houden (state3)
 				if signalIn = '1' then
 					nextState <= state3;
 				else
 					nextState <= state1;
 				end if;
-			when others =>												--Onbekende toestand
+			when others =>						--Onbekende toestand
 				nextState <= state1;
 		end case;
 	end process;
