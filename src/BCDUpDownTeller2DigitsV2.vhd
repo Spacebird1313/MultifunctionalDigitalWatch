@@ -13,13 +13,13 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity BCDUpDownTeller2DigitsV2 is
 	Generic ( max : integer := 99;
-				 min : integer := 0);
+		  min : integer := 0);
 	Port ( sysClk : in STD_LOGIC;
-			 updown : in STD_LOGIC;
+	       updown : in STD_LOGIC;
 	       reset : in STD_LOGIC;
-			 enable : in STD_LOGIC;
-			 ct : out STD_LOGIC := '0';
-			 cnt : out STD_LOGIC_VECTOR (7 downto 0) := "00000000");
+	       enable : in STD_LOGIC;
+	       ct : out STD_LOGIC := '0';
+	       cnt : out STD_LOGIC_VECTOR (7 downto 0) := "00000000");
 end BCDUpDownTeller2DigitsV2;
 
 architecture Behavioral of BCDUpDownTeller2DigitsV2 is
@@ -34,22 +34,22 @@ Teller : process(sysClk)
 			if reset = '1' then
 				cnt_int <= min;
 			elsif enable = '1' then
-				if updown = '0' then      --Optellen
-					if cnt_int = max then  --Maximale waarde bereikt, zet waarde terug op minimaal
+				if updown = '0' then      			--Optellen
+					if cnt_int = max then  			--Maximale waarde bereikt, zet waarde terug op minimaal
 						cnt_int <= min;
 						ct <= '1';
 					else
 						cnt_int <= cnt_int + 1;
 					end if;
-				else                      --Aftrekken
-					if cnt_int = min then  --Minimale waarde bereikt, zet waarde terug op maximaal
-			         cnt_int <= max;
-					   ct <= '1';
-				   else
-					   cnt_int <= cnt_int - 1;
-				      end if;
-			   end if;
-		   end if;
+				else                      			--Aftrekken
+					if cnt_int = min then  			--Minimale waarde bereikt, zet waarde terug op maximaal
+			         		cnt_int <= max;
+					   	ct <= '1';
+				   	else
+					   	cnt_int <= cnt_int - 1;
+				      	end if;
+				end if;
+		   	end if;
 		end if;
 	end process;
 	
