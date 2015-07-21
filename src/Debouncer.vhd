@@ -12,8 +12,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity Debouncer is
 	Port ( clk : in STD_LOGIC;
-			 buttonIn : in STD_LOGIC_VECTOR(4 downto 0);
-			 buttonUit : out STD_LOGIC_VECTOR(4 downto 0) := "00000");	 
+	       buttonIn : in STD_LOGIC_VECTOR(4 downto 0);
+	       buttonUit : out STD_LOGIC_VECTOR(4 downto 0) := "00000");	 
 end Debouncer;
 
 architecture Behavioral of Debouncer is
@@ -24,9 +24,9 @@ begin
 debounce : process(clk)
 	begin
 		if rising_edge(clk) then
-		delay1 <= buttonIn;
-		delay2 <= delay1;
-		delay3 <= delay2;
+			delay1 <= buttonIn;
+			delay2 <= delay1;
+			delay3 <= delay2;
 		end if;
 	end process;
 	
