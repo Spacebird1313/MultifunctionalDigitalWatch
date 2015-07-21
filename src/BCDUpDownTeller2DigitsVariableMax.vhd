@@ -14,12 +14,12 @@ use IEEE.NUMERIC_STD.ALL;
 entity BCDUpDownTeller2DigitsVariableMax is
 	Generic ( min : integer := 0);
 	Port ( sysClk : in STD_LOGIC;
-			 updown : in STD_LOGIC;
+	       updown : in STD_LOGIC;
 	       reset : in STD_LOGIC;
-			 enable : in STD_LOGIC;
-			 max : in STD_LOGIC_VECTOR (7 downto 0) := "00000000";
-			 ct : out STD_LOGIC := '0';
-			 cnt : out STD_LOGIC_VECTOR (7 downto 0) := "00000000");
+	       enable : in STD_LOGIC;
+	       max : in STD_LOGIC_VECTOR (7 downto 0) := "00000000";
+	       ct : out STD_LOGIC := '0';
+	       cnt : out STD_LOGIC_VECTOR (7 downto 0) := "00000000");
 end BCDUpDownTeller2DigitsVariableMax;
 
 architecture Behavioral of BCDUpDownTeller2DigitsVariableMax is
@@ -60,17 +60,17 @@ Teller : process(sysClk)
 					end if;
 				else                                                                          																			--Aftrekken
 					if cnt_eenheid_int = eenheid_min and cnt_tiental_int = tiental_min then   																				--Minimale waarde bereikt, zet waarde terug op maximaal
-			         cnt_eenheid_int <= eenheid_max;
-			  	      cnt_tiental_int <= tiental_max;
-					   ct <= '1';
-				   elsif cnt_eenheid_int = 0 then
-				 	   cnt_eenheid_int <= 9;
-					   cnt_tiental_int <= cnt_tiental_int - 1;
-				   else
-					   cnt_eenheid_int <= cnt_eenheid_int - 1;
-				      end if;
-			   end if;
-		   end if;
+			         		cnt_eenheid_int <= eenheid_max;
+			  	      		cnt_tiental_int <= tiental_max;
+					   	ct <= '1';
+					elsif cnt_eenheid_int = 0 then
+				 	   	cnt_eenheid_int <= 9;
+					   	cnt_tiental_int <= cnt_tiental_int - 1;
+				   	else
+					   	cnt_eenheid_int <= cnt_eenheid_int - 1;
+				   	end if;
+			   	end if;
+		   	end if;
 		end if;
 	end process;
 
@@ -78,4 +78,3 @@ cnt(3 downto 0) <= std_logic_vector(to_unsigned(cnt_eenheid_int, 4));
 cnt(7 downto 4) <= std_logic_vector(to_unsigned(cnt_tiental_int, 4));
 
 end Behavioral;
-
