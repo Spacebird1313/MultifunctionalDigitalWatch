@@ -25,11 +25,11 @@ end BCDUpDownTeller2DigitsVariableMaxV2;
 architecture Behavioral of BCDUpDownTeller2DigitsVariableMaxV2 is
 
 Signal cnt_int : integer range min to 99 := min;
-Signal max_int : integer range min to 99 := min;																												 --Wacht op input (max) voor instellen van max
+Signal max_int : integer range min to 99 := min;								--Wacht op input (max) voor instellen van max
 
 begin
 
-max_int <= (to_integer(unsigned(max(7 downto 4))))*10 + (to_integer(unsigned(max(3 downto 0))));  												 --Stel maximum in (conversie STD_LOGIC_VECTOR(BCD) naar integer)
+max_int <= (to_integer(unsigned(max(7 downto 4))))*10 + (to_integer(unsigned(max(3 downto 0))));  		--Stel maximum in (conversie STD_LOGIC_VECTOR(BCD) naar integer)
 
 Teller : process(sysClk)
 	begin
@@ -40,15 +40,15 @@ Teller : process(sysClk)
 			elsif cnt_int > max_int then
 				cnt_int <= max_int;
 			elsif enable = '1' then
-				if updown = '0' then          																														 --Optellen
-					if cnt_int >= max_int then  																														 --Maximale waarde bereikt, zet waarde terug op minimaal
+				if updown = '0' then          							--Optellen
+					if cnt_int >= max_int then  						--Maximale waarde bereikt, zet waarde terug op minimaal
 						cnt_int <= min;
 						ct <= '1';
 					else
 						cnt_int <= cnt_int + 1;
 					end if;
-				else                         																															 --Aftrekken
-					if cnt_int = min then     																															 --Minimale waarde bereikt, zet waarde terug op maximaal
+				else                         							--Aftrekken
+					if cnt_int = min then     						--Minimale waarde bereikt, zet waarde terug op maximaal
 			         		cnt_int <= max_int;
 					   	ct <= '1';
 				   	else
